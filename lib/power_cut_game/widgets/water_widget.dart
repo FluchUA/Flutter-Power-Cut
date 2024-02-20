@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:global_gamers_challenge/power_cut_game/models/common_values_model.dart';
 
 class WaterWidget extends StatefulWidget {
@@ -15,7 +14,7 @@ class _WaterWidgetState extends State<WaterWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: cVModel.waterWidth * cVModel.scale,
+      width: cVModel.backgroundPartsWidth * cVModel.scale,
       height: cVModel.waterHeight * cVModel.scale,
       child: Image.asset('assets/2.png', fit: BoxFit.cover),
     );

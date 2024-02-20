@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:global_gamers_challenge/power_cut_game/models/common_values_model.dart';
 
 class SkyWidget extends StatefulWidget {
@@ -14,18 +13,13 @@ class _SkyWidgetState extends State<SkyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final currentHeight = cVModel.screenH -
-        cVModel.waterHeight * cVModel.scale -
-        cVModel.screenOffset * cVModel.scale;
-
     return SizedBox(
-      width: cVModel.gradientWidth * cVModel.scale,
-      height:
-      // cVModel.screenH > cVModel.minScreenSize * 1.5
-      //     ?
-      currentHeight
-          // : cVModel.minScreenSize * 0.5
-      ,
+      width: cVModel.backgroundPartsWidth * cVModel.scale,
+      height: (cVModel.screenH > cVModel.minScreenHeight
+              ? cVModel.screenH
+              : cVModel.minScreenHeight) -
+          cVModel.waterHeight * cVModel.scale -
+          cVModel.screenOffset * cVModel.scale,
       child: Image.asset(
         'assets/1.png',
         fit: BoxFit.cover,

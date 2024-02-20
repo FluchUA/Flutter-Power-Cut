@@ -3,20 +3,16 @@ class CommonValuesModel {
 
   static final CommonValuesModel instance = CommonValuesModel._();
 
-  final int screenOffset = 150;
+  final int screenOffset = 100;
+  final int additionalCityScreenOffset = 25;
 
-  final double waterWidth = 500;
+  final double backgroundPartsWidth = 500;
   final double waterHeight = 200;
-
-  final double gradientWidth = 500;
   final double gradientHeight = 500;
-
-  final double ctrlPanelWidth = 500;
-  final double ctrlPanelHeight = 150;
+  final double ctrlPanelHeight = 100;
 
   final double cityWidth = 500;
   final double cityHeight = 250;
-  final int additionalCityScreenOffset = 25;
 
   final double minScreenWidth = 500;
   final double minScreenHeight = 250;

@@ -49,32 +49,33 @@ class PowerCutGameController {
     }
   }
 
-  void manageAddingControlPanelItem(int count, List<Widget> list) {
+  void manageAddingCtrlItem(int count, List<Widget> list) {
     if (list.isEmpty) {
       list.add(const ControlPanelWidget());
     }
 
-    if (count > 1) {
-      for (var i = 0; i < count; i++) {
-        list
-          ..insert(0, const ControlPanelBackgroundWidget())
-          ..add(const ControlPanelBackgroundWidget());
-      }
+    for (var i = 0; i < count; i++) {
+      list
+        ..insert(0, const ControlPanelBackgroundWidget())
+        ..add(const ControlPanelBackgroundWidget());
     }
   }
 
-  void manageRemovingBackgroundItems(int count, List<Widget> list) {
+  void manageRemovingBackgroundItems(int count, List<Widget> list,
+      {bool isEdges = false}) {
     final cVModel = CommonValuesModel.instance;
 
     if (list.length == cVModel.minCountBackgroundElements) {
       return;
     }
 
-    list.removeRange(
-        list.length - count >= cVModel.minCountBackgroundElements
-            ? list.length - count
-            : list.length - cVModel.minCountBackgroundElements,
-        list.length);
+    if (isEdges) {
+      list
+        ..removeAt(0)
+        ..removeLast();
+    } else {
+      list.removeRange(list.length - count, list.length);
+    }
   }
 
   void updateScroll({
@@ -83,7 +84,6 @@ class PowerCutGameController {
     required ScrollController controlPanelScroll,
     bool isAnimate = false,
   }) {
-    //if (kIsWeb) {
     if (skyScrollCtrl.hasClients) {
       if (isAnimate) {
         final maxScroll = skyScrollCtrl.position.maxScrollExtent;
@@ -125,7 +125,6 @@ class PowerCutGameController {
         controlPanelScroll.jumpTo(maxScroll / 2);
       }
     }
-    // }
   }
 
   /// Control the number of web background elements.
@@ -138,81 +137,26 @@ class PowerCutGameController {
     required ScrollController waterScrollCtrl,
     required ScrollController controlPanelScroll,
   }) {
-    //if (kIsWeb) {
     final cVModel = CommonValuesModel.instance;
 
-    /// Sky
+    /// All lists must have the same size, that's why I only check one
     if (skyList.isNotEmpty) {
-      final skyWidth = skyList.length * cVModel.gradientWidth * cVModel.scale;
+      final skyWidth =
+          skyList.length * cVModel.backgroundPartsWidth * cVModel.scale;
 
-      /// Add sky elements
-      if (skyWidth + 50 < cVModel.screenW) {
-        final count = (cVModel.screenW / skyWidth).floor();
-
-        manageAddingSkyItem(
-          count % 2 == 0 ? count : count + 1,
-          skyList,
-        );
+      /// Add elements
+      if (skyWidth - 50 < cVModel.screenW) {
+        manageAddingSkyItem(2, skyList);
+        manageAddingWaterItem(2, waterList);
+        manageAddingCtrlItem(1, ctrlPanelList);
       } else
 
-      /// Remove sky elements
-      if (skyWidth - cVModel.screenW >= cVModel.gradientWidth * cVModel.scale * 2.5) {
-        final count = (skyWidth / cVModel.screenW).floor();
-
-        manageRemovingBackgroundItems(count - 1, skyList);
-      }
-    }
-
-    /// Water
-    if (waterList.isNotEmpty) {
-      final waterWidth = waterList.length * cVModel.waterWidth * cVModel.scale;
-
-      /// Add water elements
-      if (waterWidth + 50 < cVModel.screenW) {
-        final count = (cVModel.screenW / waterWidth).floor();
-
-        manageAddingWaterItem(
-          count % 2 == 0 ? count : count + 1,
-          waterList,
-        );
-      } else
-
-      /// Remove water elements
-      if (waterWidth - cVModel.screenW > cVModel.waterWidth * cVModel.scale * 2.5) {
-        final count = (waterWidth / cVModel.screenW).floor();
-
-        // manageRemovingBackgroundItems(
-        //   count % 2 == 0 ? count : count + 1,
-        //   waterList,
-        // );
-        manageRemovingBackgroundItems(count - 1, waterList);
-      }
-    }
-
-    /// Control panel
-    if (ctrlPanelList.isNotEmpty) {
-      final ctrlPanelWidth =
-          ctrlPanelList.length * cVModel.ctrlPanelWidth * cVModel.scale;
-
-      /// Add water elements
-      if (ctrlPanelWidth + 50 < cVModel.screenW) {
-        final count = (cVModel.screenW / ctrlPanelWidth).floor();
-
-        manageAddingControlPanelItem(
-          count % 2 == 0 ? count : count + 1,
-          ctrlPanelList,
-        );
-      } else
-
-      /// Remove water elements
-      if (ctrlPanelWidth - cVModel.screenW > cVModel.ctrlPanelWidth * cVModel.scale * 2.5) {
-        final count = (ctrlPanelWidth / cVModel.screenW).floor();
-
-        // manageRemovingBackgroundItems(
-        //   count % 2 == 0 ? count : count + 1,
-        //   ctrlPanelList,
-        // );
-        manageRemovingBackgroundItems(count - 1, ctrlPanelList);
+      /// Remove elements
+      if (skyWidth - cVModel.screenW >=
+          cVModel.backgroundPartsWidth * cVModel.scale * 2.5) {
+        manageRemovingBackgroundItems(2, skyList);
+        manageRemovingBackgroundItems(2, waterList);
+        manageRemovingBackgroundItems(1, ctrlPanelList, isEdges: true);
       }
     }
 
@@ -221,7 +165,6 @@ class PowerCutGameController {
       waterScrollCtrl: waterScrollCtrl,
       controlPanelScroll: controlPanelScroll,
     );
-    // }
   }
 
 // Stack(

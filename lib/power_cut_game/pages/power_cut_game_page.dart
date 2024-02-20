@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:global_gamers_challenge/power_cut_game/models/common_values_model.dart';
 import 'package:global_gamers_challenge/power_cut_game/models/power_cut_game_controller.dart';
@@ -32,12 +30,9 @@ class _PowerCutGamePageState extends State<PowerCutGamePage>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
         _gameCtrl
-          ..manageAddingSkyItem(/*kIsWeb ? 5 : 1*/ 5, _skyList)
-          ..manageAddingWaterItem(/*kIsWeb ? 5 : 1*/ 5, _waterList)
-          ..manageAddingControlPanelItem(
-              /*kIsWeb ? 4 : 1*/
-              4,
-              _ctrlPanelList);
+          ..manageAddingSkyItem(3, _skyList)
+          ..manageAddingWaterItem(3, _waterList)
+          ..manageAddingCtrlItem(1, _ctrlPanelList);
       });
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -69,7 +64,9 @@ class _PowerCutGamePageState extends State<PowerCutGamePage>
     _manageScale();
     _updateScroll();
 
-    log(_skyList.length.toString() + " " + _waterList.length.toString() + " " + _ctrlPanelList.length.toString() + " " + _cVModel.screenH.toString());
+    final currentHeight = _cVModel.screenH > _cVModel.minScreenHeight
+        ? _cVModel.screenH
+        : _cVModel.minScreenHeight;
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -96,14 +93,9 @@ class _PowerCutGamePageState extends State<PowerCutGamePage>
 
             /// Water
             Positioned(
-              top:
-              // _cVModel.screenH > _cVModel.minScreenSize * 1.5
-              //     ?
-              _cVModel.screenH -
-                      _cVModel.waterHeight * _cVModel.scale -
-                      _cVModel.screenOffset * _cVModel.scale
-                  // :  _cVModel.minScreenSize * 0.5
-              ,
+              top: currentHeight -
+                  _cVModel.waterHeight * _cVModel.scale -
+                  _cVModel.screenOffset * _cVModel.scale,
               child: SizedBox(
                 width: _cVModel.screenW,
                 child: SingleChildScrollView(
@@ -122,18 +114,10 @@ class _PowerCutGamePageState extends State<PowerCutGamePage>
             Positioned(
               left: 0,
               right: 0,
-              top:
-              // _cVModel.screenH > _cVModel.minScreenSize * 1.5
-              //     ?
-
-              _cVModel.screenH -
-                      _cVModel.cityHeight * _cVModel.scale -
-                      _cVModel.screenOffset * _cVModel.scale -
-                      _cVModel.additionalCityScreenOffset * _cVModel.scale
-                  // : _cVModel.minScreenSize * 0.5 -
-                  //     _cVModel.screenOffset +
-                  //     _cVModel.additionalCityScreenOffset
-              ,
+              top: currentHeight -
+                  _cVModel.cityHeight * _cVModel.scale -
+                  _cVModel.screenOffset * _cVModel.scale -
+                  _cVModel.additionalCityScreenOffset * _cVModel.scale,
               child: Center(
                 key: UniqueKey(),
                 child: const CityWidget(),
@@ -142,13 +126,7 @@ class _PowerCutGamePageState extends State<PowerCutGamePage>
 
             /// Control panel
             Positioned(
-              top:
-              // _cVModel.screenH > _cVModel.minScreenSize * 1.5
-              //     ?
-              _cVModel.screenH - _cVModel.screenOffset * _cVModel.scale
-                  // : _cVModel.minScreenSize +
-                  //     _cVModel.additionalCityScreenOffset
-              ,
+              top: currentHeight - _cVModel.ctrlPanelHeight * _cVModel.scale,
               child: SizedBox(
                 width: _cVModel.screenW,
                 child: SingleChildScrollView(
@@ -170,9 +148,7 @@ class _PowerCutGamePageState extends State<PowerCutGamePage>
 
   void _manageScale({bool isFirstLaunch = false}) {
     final screenW = MediaQuery.of(context).size.width;
-    final screenH =
-    // isFirstLaunch ? _cVModel.minScreenSize * 1.5 :
-    MediaQuery.of(context).size.height;
+    final screenH = MediaQuery.of(context).size.height;
 
     _cVModel
       ..screenW = screenW
@@ -182,23 +158,18 @@ class _PowerCutGamePageState extends State<PowerCutGamePage>
     final minLength = screenW > screenH ? screenH : screenW;
 
     ///  If the size of one side of the screen has changed
-    if ((screenW >= _cVModel.minScreenWidth &&
-            screenH >= _cVModel.minScreenHeight)
-        // &&
-        // (screenH > _cVModel.minScreenSize * 1.5 || isFirstLaunch)
-    ) {
+    if (screenW >= _cVModel.minScreenWidth &&
+        screenH >= _cVModel.minScreenHeight) {
       _cVModel.scale = minLength / _cVModel.minScreenWidth;
 
-      // setState(() {
       _gameCtrl.manageBackgroundList(
-          skyList: _skyList,
-          waterList: _waterList,
-          ctrlPanelList: _ctrlPanelList,
-          skyScrollCtrl: _skyScrollController,
-          waterScrollCtrl: _waterScrollController,
-          controlPanelScroll: _controlPanelScrollController,
-        );
-      // });
+        skyList: _skyList,
+        waterList: _waterList,
+        ctrlPanelList: _ctrlPanelList,
+        skyScrollCtrl: _skyScrollController,
+        waterScrollCtrl: _waterScrollController,
+        controlPanelScroll: _controlPanelScrollController,
+      );
     }
   }
 

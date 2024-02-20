@@ -16,9 +16,10 @@ class _ControlPanelBackgroundWidgetState
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: cVModel.ctrlPanelWidth * cVModel.scale,
+      width: cVModel.backgroundPartsWidth * cVModel.scale,
       height: cVModel.ctrlPanelHeight * cVModel.scale,
-      child: Image.asset('assets/control_panel_background.png', fit: BoxFit.cover),
+      child:
+          Image.asset('assets/control_panel_background.png', fit: BoxFit.cover),
     );
   }
 }

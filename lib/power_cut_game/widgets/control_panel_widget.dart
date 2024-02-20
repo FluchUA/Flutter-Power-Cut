@@ -14,7 +14,7 @@ class _ControlPanelWidgetState extends State<ControlPanelWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: cVModel.ctrlPanelWidth * cVModel.scale,
+      width: cVModel.backgroundPartsWidth * cVModel.scale,
       height: cVModel.ctrlPanelHeight * cVModel.scale,
       child: Image.asset('assets/control_panel.png', fit: BoxFit.cover),
     );
