@@ -1,0 +1,33 @@
+name: global_gamers_challenge
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.6 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  rive: ^0.12.4
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/day_night.riv
+    - assets/water.riv
+    - assets/1.png
+    - assets/2.png
+    - assets/city.png
+    - assets/control_panel.png
+    - assets/control_panel_background.png
