@@ -40,7 +40,7 @@ class _PowerCutGamePageState extends State<PowerCutGamePage>
         _updateScroll();
       });
     });
-    // WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
@@ -48,118 +48,126 @@ class _PowerCutGamePageState extends State<PowerCutGamePage>
     _skyScrollController.dispose();
     _waterScrollController.dispose();
     _controlPanelScrollController.dispose();
-    // WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
-  // @override
-  // void didChangeMetrics() {
-  //   super.didChangeMetrics();
-  //   _manageScale();
-  //   _updateScroll();
-  // }
+  @override
+  void didChangeMetrics() {
+    super.didChangeMetrics();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    _manageScale();
-    _updateScroll();
-
-    final currentHeight = _cVModel.screenH > _cVModel.minScreenHeight
-        ? _cVModel.screenH
-        : _cVModel.minScreenHeight;
-
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            /// Sky
-            Positioned(
-              top: 0,
-              child: SizedBox(
-                width: _cVModel.screenW,
-                child: SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  controller: _skyScrollController,
-                  child: Row(
-                    key: UniqueKey(),
-                    children: _skyList,
+        child: LayoutBuilder(builder: (context, constrains) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            final screenW = constrains.maxWidth;
+            final screenH = constrains.maxHeight;
+
+            _cVModel
+              ..screenW = screenW
+              ..screenH = screenH;
+
+            _manageScale();
+            _updateScroll();
+          });
+
+          final currentHeight = _cVModel.screenH > _cVModel.minScreenHeight
+              ? _cVModel.screenH
+              : _cVModel.minScreenHeight;
+
+          return Stack(
+            fit: StackFit.expand,
+            children: [
+              /// Sky
+              Positioned(
+                top: 0,
+                child: SizedBox(
+                  width: _cVModel.screenW,
+                  child: SingleChildScrollView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    controller: _skyScrollController,
+                    child: Row(
+                      key: UniqueKey(),
+                      children: _skyList,
+                    ),
                   ),
                 ),
               ),
-            ),
 
-            /// Water
-            Positioned(
-              top: currentHeight -
-                  _cVModel.waterHeight * _cVModel.scale -
-                  _cVModel.screenOffset * _cVModel.scale,
-              child: SizedBox(
-                width: _cVModel.screenW,
-                child: SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  controller: _waterScrollController,
-                  child: Row(
-                    key: UniqueKey(),
-                    children: _waterList,
+              /// Water
+              Positioned(
+                top: currentHeight -
+                    _cVModel.waterHeight * _cVModel.scale -
+                    _cVModel.screenOffset * _cVModel.scale,
+                child: SizedBox(
+                  width: _cVModel.screenW,
+                  child: SingleChildScrollView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    controller: _waterScrollController,
+                    child: Row(
+                      key: UniqueKey(),
+                      children: _waterList,
+                    ),
                   ),
                 ),
               ),
-            ),
 
-            /// City
-            Positioned(
-              left: 0,
-              right: 0,
-              top: currentHeight -
-                  _cVModel.cityHeight * _cVModel.scale -
-                  _cVModel.screenOffset * _cVModel.scale -
-                  _cVModel.additionalCityScreenOffset * _cVModel.scale,
-              child: Center(
-                key: UniqueKey(),
-                child: const CityWidget(),
+              /// City
+              Positioned(
+                left: 0,
+                right: 0,
+                top: currentHeight -
+                    _cVModel.cityHeight * _cVModel.scale -
+                    _cVModel.screenOffset * _cVModel.scale -
+                    _cVModel.additionalCityScreenOffset * _cVModel.scale,
+                child: Center(
+                  key: UniqueKey(),
+                  child: const CityWidget(),
+                ),
               ),
-            ),
 
-            /// Control panel
-            Positioned(
-              top: currentHeight - _cVModel.ctrlPanelHeight * _cVModel.scale,
-              child: SizedBox(
-                width: _cVModel.screenW,
-                child: SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  controller: _controlPanelScrollController,
-                  child: Row(
-                    key: UniqueKey(),
-                    children: _ctrlPanelList,
+              /// Control panel
+              Positioned(
+                top: currentHeight - _cVModel.ctrlPanelHeight * _cVModel.scale,
+                child: SizedBox(
+                  width: _cVModel.screenW,
+                  child: SingleChildScrollView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    controller: _controlPanelScrollController,
+                    child: Row(
+                      key: UniqueKey(),
+                      children: _ctrlPanelList,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
+            ],
+          );
+        }),
       ),
     );
   }
 
   void _manageScale({bool isFirstLaunch = false}) {
-    final screenW = MediaQuery.of(context).size.width;
-    final screenH = MediaQuery.of(context).size.height;
-
-    _cVModel
-      ..screenW = screenW
-      ..screenH = screenH;
-
     /// Determining the minimum size of one side of the screen
-    final minLength = screenW > screenH ? screenH : screenW;
+    final minLength = _cVModel.screenW > _cVModel.screenH
+        ? _cVModel.screenH
+        : _cVModel.screenW;
 
     ///  If the size of one side of the screen has changed
-    if (screenW >= _cVModel.minScreenWidth &&
-        screenH >= _cVModel.minScreenHeight) {
+    if ((_cVModel.screenW >= _cVModel.minScreenWidth &&
+            _cVModel.screenH >= _cVModel.minScreenHeight) ||
+        isFirstLaunch) {
       _cVModel.scale = minLength / _cVModel.minScreenWidth;
 
       _gameCtrl.manageBackgroundList(
@@ -170,16 +178,20 @@ class _PowerCutGamePageState extends State<PowerCutGamePage>
         waterScrollCtrl: _waterScrollController,
         controlPanelScroll: _controlPanelScrollController,
       );
+
+      if (isFirstLaunch) {
+        setState(() {});
+      }
     }
   }
 
   void _updateScroll() {
-    setState(() {
-      _gameCtrl.updateScroll(
-        skyScrollCtrl: _skyScrollController,
-        waterScrollCtrl: _waterScrollController,
-        controlPanelScroll: _controlPanelScrollController,
-      );
-    });
+    // setState(() {
+    _gameCtrl.updateScroll(
+      skyScrollCtrl: _skyScrollController,
+      waterScrollCtrl: _waterScrollController,
+      controlPanelScroll: _controlPanelScrollController,
+    );
+    // });
   }
 }
