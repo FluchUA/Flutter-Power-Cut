@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:global_gamers_challenge/power_cut_game/models/common_values_model.dart';
-import 'package:global_gamers_challenge/power_cut_game/models/power_cut_game_controller.dart';
-import 'package:global_gamers_challenge/power_cut_game/widgets/city_widget.dart';
+import 'package:global_gamers_challenge/power_cut_game/flutter/utils/power_cut_game_controller.dart';
+import 'package:global_gamers_challenge/power_cut_game/flutter/widgets/city_widget.dart';
+import 'package:global_gamers_challenge/utils/common_values_model.dart';
 
 class PowerCutGamePage extends StatefulWidget {
   const PowerCutGamePage({super.key});
@@ -186,12 +186,10 @@ class _PowerCutGamePageState extends State<PowerCutGamePage>
   }
 
   void _updateScroll() {
-    // setState(() {
     _gameCtrl.updateScroll(
       skyScrollCtrl: _skyScrollController,
       waterScrollCtrl: _waterScrollController,
       controlPanelScroll: _controlPanelScrollController,
     );
-    // });
   }
 }

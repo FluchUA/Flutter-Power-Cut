@@ -10,9 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
-  rive: ^0.12.4
-
+  flame: ^1.15.0
+  flame_rive: ^1.9.11
 
 dev_dependencies:
   flutter_test:
@@ -24,6 +23,8 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/button/button_default.png
+    - assets/button/button_pressed.png
     - assets/day_night.riv
     - assets/water.riv
     - assets/1.png

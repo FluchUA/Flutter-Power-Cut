@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:global_gamers_challenge/power_cut_game/models/common_values_model.dart';
+import 'package:global_gamers_challenge/utils/common_values_model.dart';
 
 class WaterWidget extends StatefulWidget {
   const WaterWidget({super.key});

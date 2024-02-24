@@ -1,41 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:global_gamers_challenge/power_cut_game/models/common_values_model.dart';
-import 'package:global_gamers_challenge/power_cut_game/widgets/control_panel_background_widget.dart';
-import 'package:global_gamers_challenge/power_cut_game/widgets/control_panel_widget.dart';
-import 'package:global_gamers_challenge/power_cut_game/widgets/sky_widget.dart';
-import 'package:global_gamers_challenge/power_cut_game/widgets/water_widget.dart';
+import 'package:global_gamers_challenge/power_cut_game/flutter/widgets/control_panel_background_widget.dart';
+import 'package:global_gamers_challenge/power_cut_game/flutter/widgets/control_panel_widget.dart';
+import 'package:global_gamers_challenge/power_cut_game/flutter/widgets/sky_widget.dart';
+import 'package:global_gamers_challenge/power_cut_game/flutter/widgets/water_widget.dart';
+import 'package:global_gamers_challenge/utils/common_values_model.dart';
 
 class PowerCutGameController {
   PowerCutGameController._();
 
   static final PowerCutGameController instance = PowerCutGameController._();
-
-  // late final StateMachineController? ctrl;
-  // late final StateMachineController? ctrl2;
-  // SMINumber? progressInput;
-  // SMINumber? progressInput2;
-  // double _counter1 = 0;
-  // double _counter2 = 0;
-
-  // Stream.periodic(const Duration(seconds: 1), (_) {
-  //   progressInput?.value += 1;
-  //   progressInput2?.value += 1;
-  // });
-  //
-  // Timer.periodic(const Duration(milliseconds: 25), (timer) {
-  //   setState(() {
-  //     if (_counter1 >= 100) {
-  //       _counter1 = 0;
-  //       _counter2 = 0;
-  //     } else {
-  //       _counter1 += 0.8;
-  //       _counter2 += 0.8;
-  //     }
-  //
-  //     progressInput?.value = _counter1;
-  //     progressInput2?.value = _counter2;
-  //   });
-  // });
 
   void manageAddingSkyItem(int count, List<Widget> list) {
     for (var i = 0; i < count; i++) {
@@ -166,50 +139,4 @@ class PowerCutGameController {
       controlPanelScroll: controlPanelScroll,
     );
   }
-
-// Stack(
-//   children: [
-//     /// Background
-//
-//     Positioned.fill(
-//       child: Container(
-//         color: Colors.blue,
-//         child: RiveAnimation.asset(
-//           'assets/dayNight.riv',
-//           fit: BoxFit.cover,
-//           stateMachines: const ['State Machine 1'],
-//           onInit: (artboard) {
-//             ctrl = StateMachineController.fromArtboard(artboard, 'State Machine 1');
-//             if (ctrl != null) {
-//                 progressInput = ctrl!.inputs.first as SMINumber;
-//                 artboard.addController(ctrl!);
-//             }
-//           },
-//         ),
-//       ),
-//     ),
-//     /// Water
-//     Positioned.fill(
-//       bottom: 0,
-//       left: 0,
-//       right: 0,
-//       child: Container(
-//         child: RiveAnimation.asset(
-//           'assets/water.riv',
-//           stateMachines: const ['State Machine 1'],
-//           onInit: (artboard) {
-//             ctrl2 = StateMachineController.fromArtboard(artboard, 'State Machine 1');
-//             if (ctrl2 != null) {
-//               setState(() {
-//                 progressInput2 = ctrl2!.inputs.first as SMINumber;
-//                 artboard.addController(ctrl2!);
-//               });
-//             }
-//           },
-//         ),
-//       ),
-//     ),
-//   ],
-// ),
-// );
 }
