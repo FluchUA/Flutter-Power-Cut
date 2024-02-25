@@ -4,13 +4,14 @@ import 'package:flame/components.dart';
 import 'package:global_gamers_challenge/utils/common_values_model.dart';
 import 'package:global_gamers_challenge/utils/sprite_utils.dart';
 
-class SkyComponent extends SpriteComponent {
+class SkyBottomComponent extends SpriteComponent {
   final CommonValuesModel _cVModel = CommonValuesModel.instance;
+  DayCycleType _currentDayCycleType = DayCycleType.night;
 
   @override
   FutureOr<void> onLoad() async {
     size = Vector2(_cVModel.backgroundPartsWidth, _cVModel.gradientHeight);
-    sprite = await getSpriteFromAsset('assets/1.png');
+    sprite = _cVModel.night;
     anchor = Anchor.bottomCenter;
 
     return super.onLoad();
@@ -26,5 +27,30 @@ class SkyComponent extends SpriteComponent {
         _cVModel.screenOffset * _cVModel.scale;
 
     scale = Vector2.all(_cVModel.currentEdgeHeight / _cVModel.minScreenWidth);
+  }
+
+  @override
+  Future<void> update(double dt) async {
+    super.update(dt);
+
+    if (_cVModel.dayCycleType != _currentDayCycleType) {
+      switch (_cVModel.dayCycleType) {
+        case DayCycleType.nightToSunRise:
+          sprite = _cVModel.sunRise;
+          break;
+        case DayCycleType.sunRiseToDay:
+          sprite = _cVModel.day;
+          break;
+        case DayCycleType.dayToSunSet:
+          sprite = _cVModel.sunRise;
+          break;
+        case DayCycleType.sunSetToNight:
+          sprite = _cVModel.night;
+          break;
+        default:
+          break;
+      }
+      _currentDayCycleType = _cVModel.dayCycleType;
+    }
   }
 }

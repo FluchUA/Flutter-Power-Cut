@@ -44,8 +44,7 @@ class ControlPanelMainComponent extends PositionComponent {
       _ctrlPanelList[i].position.x = (size.x / 2 + (ctrlPanelWidth * i)) -
           ((_ctrlPanelList.length - 1 >= 0 ? _ctrlPanelList.length - 1 : 0) *
                   ctrlPanelWidth) *
-              0.5 -
-          i;
+              0.5;
     }
   }
 }

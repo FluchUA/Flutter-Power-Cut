@@ -25,6 +25,9 @@ flutter:
   assets:
     - assets/button/button_default.png
     - assets/button/button_pressed.png
+    - assets/test/gradient_day.png
+    - assets/test/gradient_night.png
+    - assets/test/gradient_sun_rise.png
     - assets/day_night.riv
     - assets/water.riv
     - assets/1.png

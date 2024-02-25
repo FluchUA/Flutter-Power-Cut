@@ -1,3 +1,5 @@
+import 'package:flame/components.dart';
+
 class CommonValuesModel {
   CommonValuesModel._();
 
@@ -28,10 +30,25 @@ class CommonValuesModel {
   double currentEdgeHeight = 0;
 
   ScreenResize screenResizeType = ScreenResize.none;
+  DayCycleType dayCycleType = DayCycleType.night;
+  double currentAlpha = 0;
+
+  late Sprite day;
+  late Sprite sunRise;
+  late Sprite night;
 }
 
 enum ScreenResize {
   increase,
   decrease,
   none,
+}
+
+enum DayCycleType {
+  night,
+  nightToSunRise,
+  sunRiseToDay,
+  day,
+  dayToSunSet,
+  sunSetToNight,
 }

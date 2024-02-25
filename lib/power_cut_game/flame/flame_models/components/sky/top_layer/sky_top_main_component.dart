@@ -1,16 +1,16 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
-import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/components/sky/sky_component.dart';
+import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/components/sky/top_layer/sky_top_component.dart';
 import 'package:global_gamers_challenge/utils/common_values_model.dart';
 
-class SkyMainComponent extends PositionComponent {
+class SkyTopMainComponent extends PositionComponent {
   final CommonValuesModel _cVModel = CommonValuesModel.instance;
-  final List<SkyComponent> _skyList = [];
+  final List<SkyTopComponent> _skyList = [];
 
   @override
   FutureOr<void> onLoad() {
-    final sky = SkyComponent();
+    final sky = SkyTopComponent();
     add(sky);
     _skyList.add(sky);
 
@@ -26,8 +26,8 @@ class SkyMainComponent extends PositionComponent {
     while ((_skyList.length * skyWidth - 10 < size.x) &&
         size.x > size.y &&
         _cVModel.screenResizeType == ScreenResize.increase) {
-      final sky1 = SkyComponent();
-      final sky2 = SkyComponent();
+      final sky1 = SkyTopComponent();
+      final sky2 = SkyTopComponent();
       _skyList.addAll([sky1, sky2]);
       addAll([sky1, sky2]);
     }
@@ -42,8 +42,7 @@ class SkyMainComponent extends PositionComponent {
     for (var i = 0; i < _skyList.length; i++) {
       _skyList[i].position.x = (size.x / 2 + (skyWidth * i)) -
           ((_skyList.length - 1 >= 0 ? _skyList.length - 1 : 0) * skyWidth) *
-              0.5 -
-          i;
+              0.5;
     }
   }
 }

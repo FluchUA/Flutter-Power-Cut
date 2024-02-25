@@ -3,17 +3,26 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/components/city/city_component.dart';
 import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/components/control_panel/control_panel_main_component.dart';
-import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/components/sky/sky_main_component.dart';
+import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/components/sky/bottom_layer/sky_bottom_main_component.dart';
+import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/components/sky/top_layer/sky_top_main_component.dart';
 import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/components/water/water_main_component.dart';
 import 'package:global_gamers_challenge/utils/common_values_model.dart';
+import 'package:global_gamers_challenge/utils/sprite_utils.dart';
 
 class MainComponent extends PositionComponent {
   final CommonValuesModel _cVModel = CommonValuesModel.instance;
   double _sizeFactor = 1;
+  double _currentTime = 0;
 
   @override
-  FutureOr<void> onLoad() {
-    add(SkyMainComponent());
+  FutureOr<void> onLoad() async {
+    _cVModel
+      ..day = await getSpriteFromAsset('assets/test/gradient_day.png')
+      ..night = await getSpriteFromAsset('assets/test/gradient_night.png')
+      ..sunRise = await getSpriteFromAsset('assets/test/gradient_sun_rise.png');
+
+    add(SkyBottomMainComponent());
+    add(SkyTopMainComponent());
     add(WaterMainComponent());
     add(ControlPanelMainComponent());
     add(CityComponent());
@@ -52,11 +61,54 @@ class MainComponent extends PositionComponent {
       _cVModel.screenResizeType = ScreenResize.none;
     }
 
+    /// Removes gaps between elements
+    _cVModel.screenW += _cVModel.screenW % 2 == 0 ? 1 : 0;
+
     /// Additional call to calculate dimensions
     /// Fixes incorrect behavior for the browser when the screen size changes suddenly
     if (_sizeFactor != screenFactor) {
       _sizeFactor = screenFactor;
       onGameResize(Vector2(_cVModel.screenW, _cVModel.screenH));
     }
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    _currentTime += 10 * dt;
+    if (_currentTime >= 100) {
+      _currentTime -= 100;
+    }
+
+    // if (_currentTime >= 0 && _currentTime < 12) {
+    //   _cVModel.dayCycleType = DayCycleType.night;
+    // } else if (_currentTime >= 12  && _currentTime < 25) {
+    //   _cVModel.dayCycleType = DayCycleType.nightToSunRise;
+    // } else if (_currentTime >= 25  && _currentTime < 37) {
+    //   _cVModel.dayCycleType = DayCycleType.sunRiseToDay;
+    // } else if (_currentTime >= 37  && _currentTime < 50) {
+    //
+    // } else if (_currentTime >= 50  && _currentTime < 62) {
+    //
+    // } else if (_currentTime >= 62  && _currentTime < 75) {
+    //
+    // }
+
+    if (_currentTime >= 0 && _currentTime < 25) {
+      _cVModel.dayCycleType = DayCycleType.nightToSunRise;
+      _cVModel.currentAlpha = (-10.2 * _currentTime) + 255;
+    } else if (_currentTime >= 25 && _currentTime < 50) {
+      _cVModel.currentAlpha = (-10.2 * (_currentTime - 25)) + 255;
+      _cVModel.dayCycleType = DayCycleType.sunRiseToDay;
+    } else if (_currentTime >= 50 && _currentTime < 75) {
+      _cVModel.dayCycleType = DayCycleType.dayToSunSet;
+      _cVModel.currentAlpha = (-10.2 * (_currentTime - 50)) + 255;
+    } else if (_currentTime >= 75 && _currentTime < 100) {
+      _cVModel.dayCycleType = DayCycleType.sunSetToNight;
+      _cVModel.currentAlpha = (-10.2 * (_currentTime - 75)) + 255;
+    }
+
+    // log(_cVModel.currentAlpha.toInt().toString());
   }
 }

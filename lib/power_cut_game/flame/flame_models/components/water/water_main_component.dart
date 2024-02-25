@@ -43,8 +43,7 @@ class WaterMainComponent extends PositionComponent {
       _waterList[i].position.x = (size.x / 2 + (waterWidth * i)) -
           ((_waterList.length - 1 >= 0 ? _waterList.length - 1 : 0) *
                   waterWidth) *
-              0.5 -
-          i;
+              0.5;
     }
   }
 }
