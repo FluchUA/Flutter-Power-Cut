@@ -9,7 +9,6 @@ class PowerCutGameMenu extends FlameGame {
   FutureOr<void> onLoad() async {
     add(MainMenuComponent());
     overlays.add(MainMenuOverlay.overlayName);
-
     return super.onLoad();
   }
 }

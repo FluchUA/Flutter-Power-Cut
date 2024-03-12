@@ -9,7 +9,7 @@ class ScreenResizeModel {
   double _sizeFactor = -1;
   bool _isDoubleCheck = false;
 
-  void onScreenResize(Vector2 size) {
+  Future<void> onScreenResize(Vector2 size) async {
     final cVModel = CommonValuesModel.instance;
 
     cVModel
@@ -37,7 +37,7 @@ class ScreenResizeModel {
       cVModel.screenResizeType = ScreenResize.decrease;
     } else {
       if (!_isDoubleCheck) {
-        cVModel.screenResizeType = ScreenResize.none;
+        // cVModel.screenResizeType = ScreenResize.none;
       } else {
         _isDoubleCheck = false;
       }
@@ -53,7 +53,8 @@ class ScreenResizeModel {
     if (_sizeFactor != screenFactor) {
       _isDoubleCheck = true;
       _sizeFactor = screenFactor;
-      onScreenResize(Vector2(cVModel.screenW, cVModel.screenH));
+      await Future.delayed(const Duration(milliseconds: 100));
+      await onScreenResize(Vector2(cVModel.screenW, cVModel.screenH));
     }
 
     cVModel.scaleNotifier.value = cVModel.scale;

@@ -28,3 +28,7 @@ flutter:
     - assets/water/
     - assets/rive/
     - assets/menu/
+    - assets/interface/
+    - assets/control_panel/
+    - assets/city/
+    - assets/city/windows/

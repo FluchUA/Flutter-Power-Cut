@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:global_gamers_challenge/utils/common_values_model.dart';
-import 'package:global_gamers_challenge/utils/sprite_utils.dart';
 
 class ControlPanelComponent extends SpriteComponent {
   final CommonValuesModel _cVModel = CommonValuesModel.instance;
@@ -10,7 +9,7 @@ class ControlPanelComponent extends SpriteComponent {
   @override
   FutureOr<void> onLoad() async {
     size = Vector2(_cVModel.backgroundPartsWidth, _cVModel.ctrlPanelHeight);
-    sprite = await getSpriteFromAsset('assets/control_panel.png');
+    sprite = _cVModel.controlPanel;
     anchor = Anchor.topCenter;
 
     return super.onLoad();

@@ -31,30 +31,6 @@ enum WaterCycleType {
   night3_1(130, 135),
   night3_2(135, 140);
 
-  // night1(0, 5),
-  //   night2(5, 10),
-  //   sunrise1_1(10, 15),
-  //   sunrise1_2(15, 20),
-  //   sunrise2_1(20, 25),
-  //   sunrise2_2(25, 30),
-  //   sunrise3_1(30, 35),
-  //   sunrise3_2(35, 40),
-  //   sunrise4_1(40, 45),
-  //   sunrise4_2(45, 50),
-  //   sunrise5(50, 60),
-  //   day(60, 80),
-  //   sunset1(80, 90),
-  //   sunset2_1(90, 95),
-  //   sunset2_2(95, 100),
-  //   sunset3_1(100, 105),
-  //   sunset3_2(105, 110),
-  //   sunset4_1(110, 115),
-  //   sunset4_2(115, 120),
-  //   sunset5_1(120, 125),
-  //   sunset5_2(125, 130),
-  //   night3(130, 135),
-  //   night4(135, 140);
-
   const WaterCycleType(this.timeStart, this.timeEnd);
 
   final double timeStart;

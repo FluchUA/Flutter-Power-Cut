@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/power_cut_game_menu.dart';
+import 'package:global_gamers_challenge/power_cut_game/flame/overlays/tutorial_overlay.dart';
 import 'package:global_gamers_challenge/power_cut_game/flame/pages/game_page.dart';
-import 'package:global_gamers_challenge/utils/common_values_model.dart';
 
 class MainMenuOverlay extends StatefulWidget {
-  const MainMenuOverlay({super.key});
+  const MainMenuOverlay(this.powerCutMenu, {super.key});
 
   static String overlayName = 'MainMenuOverlay';
+  final PowerCutGameMenu powerCutMenu;
 
   @override
   State<MainMenuOverlay> createState() => _MainMenuOverlayState();
 }
 
 class _MainMenuOverlayState extends State<MainMenuOverlay> {
-  final CommonValuesModel _cVModel = CommonValuesModel.instance;
   static const Color _buttonColor = Color(0xFF680000);
   static const Color _textColor = Color(0xFFFFFFFF);
 
@@ -21,73 +22,64 @@ class _MainMenuOverlayState extends State<MainMenuOverlay> {
     return Center(
       child: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
-        child: ValueListenableBuilder(
-            valueListenable: _cVModel.scaleNotifier,
-            builder: (context, value, _) {
-              return Transform.scale(
-                scale: value,
-                child: Container(
-                  width: 120,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(12),
+        child: Container(
+          width: 200,
+          height: 150,
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.5),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              /// Play btn
+              SizedBox(
+                width: 150,
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: _onPlayPressed,
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(_buttonColor),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      /// Play btn
-                      SizedBox(
-                        width: 100,
-                        height: 30,
-                        child: ElevatedButton(
-                          onPressed: _onPlayPressed,
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(_buttonColor),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                          ),
-                          child: const Text(
-                            'Play',
-                            style: TextStyle(color: _textColor),
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 10),
-
-                      /// Tutorial btn
-                      SizedBox(
-                        width: 100,
-                        height: 30,
-                        child: ElevatedButton(
-                          onPressed: _onTutorialPressed,
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(_buttonColor),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                          ),
-                          child: const Text(
-                            'Tutorial',
-                            style: TextStyle(color: _textColor),
-                          ),
-                        ),
-                      ),
-                    ],
+                  child: const Text(
+                    'Play',
+                    style: TextStyle(color: _textColor),
                   ),
                 ),
-              );
-            }),
+              ),
+
+              const SizedBox(height: 20),
+
+              /// Tutorial btn
+              SizedBox(
+                width: 150,
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: _onTutorialPressed,
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(_buttonColor),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                  child: const Text(
+                    'Tutorial',
+                    style: TextStyle(color: _textColor),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -99,5 +91,8 @@ class _MainMenuOverlayState extends State<MainMenuOverlay> {
     );
   }
 
-  void _onTutorialPressed() {}
+  void _onTutorialPressed() {
+    widget.powerCutMenu.overlays.remove(MainMenuOverlay.overlayName);
+    widget.powerCutMenu.overlays.add(TutorialOverlay.overlayName);
+  }
 }
