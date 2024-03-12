@@ -141,6 +141,7 @@ class CommonValuesModel {
   late Sprite bb4_2;
   late Sprite bb4_3;
   late Sprite bb4_4;
+  late Sprite bb4_5;
   late Sprite bb5_1;
   late Sprite bb5_2;
   late Sprite bb5_3;

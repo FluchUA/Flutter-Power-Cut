@@ -132,6 +132,7 @@ class _SplashPageState extends State<SplashPage> {
       ..bb4_2 = await getSpriteFromAsset('assets/city/windows/bb4_2.png')
       ..bb4_3 = await getSpriteFromAsset('assets/city/windows/bb4_3.png')
       ..bb4_4 = await getSpriteFromAsset('assets/city/windows/bb4_4.png')
+      ..bb4_5 = await getSpriteFromAsset('assets/city/windows/bb4_5.png')
       ..bb5_1 = await getSpriteFromAsset('assets/city/windows/bb5_1.png')
       ..bb5_2 = await getSpriteFromAsset('assets/city/windows/bb5_2.png')
       ..bb5_3 = await getSpriteFromAsset('assets/city/windows/bb5_3.png')

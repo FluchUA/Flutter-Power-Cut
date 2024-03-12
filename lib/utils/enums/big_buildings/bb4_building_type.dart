@@ -6,7 +6,8 @@ enum BB4BuildingType {
   bb4_1(8, 100),
   bb4_2(12, 100),
   bb4_3(14, 150),
-  bb4_4(20, 200);
+  bb4_4(20, 200),
+  bb4_5(20, 200);
 
   const BB4BuildingType(this.co2, this.dislikes);
 
@@ -27,6 +28,8 @@ enum BB4BuildingType {
         return cVModel.bb4_3;
       case BB4BuildingType.bb4_4:
         return cVModel.bb4_4;
+      case BB4BuildingType.bb4_5:
+        return cVModel.bb4_5;
     }
   }
 }
