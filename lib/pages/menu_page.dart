@@ -3,6 +3,7 @@ import 'package:global_gamers_challenge/pages/rive_test_page.dart';
 import 'package:global_gamers_challenge/power_cut_game/flame/pages/game_page.dart';
 import 'package:global_gamers_challenge/power_cut_game/flutter/pages/power_cut_game_page.dart';
 
+/// I didn’t delete this page so that later I could go and test rive and flutter
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
 

@@ -1,16 +1,17 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
-import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/components/water/water_component.dart';
+import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/components/water/bottom_layer/water_bottom_component.dart';
 import 'package:global_gamers_challenge/utils/common_values_model.dart';
+import 'package:global_gamers_challenge/utils/enums/screen_resize.dart';
 
-class WaterMainComponent extends PositionComponent {
+class WaterBottomMainComponent extends PositionComponent {
   final CommonValuesModel _cVModel = CommonValuesModel.instance;
-  final List<WaterComponent> _waterList = [];
+  final List<WaterBottomComponent> _waterList = [];
 
   @override
   FutureOr<void> onLoad() {
-    final water = WaterComponent();
+    final water = WaterBottomComponent();
     add(water);
     _waterList.add(water);
 
@@ -26,8 +27,8 @@ class WaterMainComponent extends PositionComponent {
     while ((_waterList.length * waterWidth - 10 < size.x) &&
         size.x > size.y &&
         _cVModel.screenResizeType == ScreenResize.increase) {
-      final water1 = WaterComponent();
-      final water2 = WaterComponent();
+      final water1 = WaterBottomComponent();
+      final water2 = WaterBottomComponent();
       _waterList.addAll([water1, water2]);
       addAll([water1, water2]);
     }

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/components/sky/top_layer/sky_top_component.dart';
 import 'package:global_gamers_challenge/utils/common_values_model.dart';
+import 'package:global_gamers_challenge/utils/enums/screen_resize.dart';
 
 class SkyTopMainComponent extends PositionComponent {
   final CommonValuesModel _cVModel = CommonValuesModel.instance;

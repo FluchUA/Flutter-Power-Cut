@@ -8,12 +8,6 @@ class PowerCutGame extends FlameGame {
   FutureOr<void> onLoad() async {
     add(MainComponent());
 
-    // final skillsArtboard =
-    //     await loadArtboard(RiveFile.asset('assets/water.riv'));
-    // add(TestRiveComponent(skillsArtboard)
-    //   ..position = Vector2.zero()
-    //   ..size = size);
-
     return super.onLoad();
   }
 }

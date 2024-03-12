@@ -24,7 +24,7 @@ class CityComponent extends SpriteComponent {
       ..x = size.x / 2
       ..y = _cVModel.currentEdgeHeight -
           _cVModel.cityHeight * _cVModel.scale -
-          _cVModel.screenOffset * _cVModel.scale -
+          /*_cVModel.screenOffset*/ 100 * _cVModel.scale -
           _cVModel.additionalCityScreenOffset * _cVModel.scale;
     scale = Vector2.all(_cVModel.scale);
   }

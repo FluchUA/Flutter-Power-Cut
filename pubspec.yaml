@@ -23,15 +23,8 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/button/button_default.png
-    - assets/button/button_pressed.png
-    - assets/test/gradient_day.png
-    - assets/test/gradient_night.png
-    - assets/test/gradient_sun_rise.png
-    - assets/day_night.riv
-    - assets/water.riv
-    - assets/1.png
-    - assets/2.png
-    - assets/city.png
-    - assets/control_panel.png
-    - assets/control_panel_background.png
+    - assets/
+    - assets/sky/
+    - assets/water/
+    - assets/rive/
+    - assets/menu/

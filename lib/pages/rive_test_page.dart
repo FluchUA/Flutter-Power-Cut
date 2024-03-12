@@ -54,7 +54,7 @@ class _RiveTestPageState extends State<RiveTestPage> {
           width: 100,
           height: 100,
           child: RiveAnimation.asset(
-            'assets/water.riv',
+            'assets/rive/dayNight.riv',
             fit: BoxFit.cover,
             stateMachines: const ['State Machine 1'],
             onInit: (artboard) {
@@ -75,7 +75,7 @@ class _RiveTestPageState extends State<RiveTestPage> {
           width: 100,
           height: 100,
           child: RiveAnimation.asset(
-            'assets/water.riv',
+            'assets/rive/water.riv',
             fit: BoxFit.cover,
             stateMachines: const ['State Machine 1'],
             onInit: (artboard) {

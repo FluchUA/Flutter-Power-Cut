@@ -11,11 +11,6 @@ class GamePage extends StatelessWidget {
       body: SafeArea(
         child: GameWidget(
           game: PowerCutGame(),
-          backgroundBuilder: (context) => Container(color: Colors.red),
-          loadingBuilder: (context) => Container(
-            color: Colors.orange,
-            child: const Center(child: Text('Loading...')),
-          ),
         ),
       ),
     );
