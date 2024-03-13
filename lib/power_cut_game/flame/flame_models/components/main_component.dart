@@ -110,7 +110,11 @@ class MainComponent extends PositionComponent with HasGameRef<PowerCutGame> {
   @override
   void onGameResize(Vector2 size) {
     super.onGameResize(size);
-    _screenResizeModel.onScreenResize(size);
+
+    final cVModel = CommonValuesModel.instance;
+    if (_screenResizeModel.onScreenResize(size)) {
+      onGameResize(Vector2(cVModel.screenW, cVModel.screenH));
+    }
   }
 
   @override

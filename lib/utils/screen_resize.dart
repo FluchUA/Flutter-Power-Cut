@@ -9,7 +9,7 @@ class ScreenResizeModel {
   double _sizeFactor = -1;
   bool _isDoubleCheck = false;
 
-  Future<void> onScreenResize(Vector2 size) async {
+  bool onScreenResize(Vector2 size) {
     final cVModel = CommonValuesModel.instance;
 
     cVModel
@@ -48,15 +48,16 @@ class ScreenResizeModel {
       ..screenW += cVModel.screenW % 2 == 0 ? 1 : 0
       ..screenH += cVModel.screenH % 2 == 0 ? 1 : 0;
 
+    cVModel.scaleNotifier.value = cVModel.scale;
+
     /// Additional call to calculate dimensions
     /// Fixes incorrect behavior for the browser when the screen size changes suddenly
     if (_sizeFactor != screenFactor) {
       _isDoubleCheck = true;
       _sizeFactor = screenFactor;
-      await Future.delayed(const Duration(milliseconds: 100));
-      await onScreenResize(Vector2(cVModel.screenW, cVModel.screenH));
+      return true;
     }
 
-    cVModel.scaleNotifier.value = cVModel.scale;
+    return false;
   }
 }

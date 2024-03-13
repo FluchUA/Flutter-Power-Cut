@@ -3,9 +3,9 @@ import 'package:global_gamers_challenge/utils/common_values_model.dart';
 
 enum MB2BuildingType {
   mb2_0(0, 0),
-  mb2_1(8, 100),
-  mb2_2(12, 100),
-  mb2_3(14, 150);
+  mb2_1(10, 5),
+  mb2_2(20, 10),
+  mb2_3(30, 15);
 
   const MB2BuildingType(this.co2, this.dislikes);
 

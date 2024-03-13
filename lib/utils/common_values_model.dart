@@ -49,7 +49,7 @@ class CommonValuesModel {
   int dayStart = 35;
   int dayEnd = 105;
   double currentTime = 0;
-  int maxCO2 = 50000;
+  int maxCO2 = 200000;
   bool isGameOver = false;
 
   ScreenResize screenResizeType = ScreenResize.increase;

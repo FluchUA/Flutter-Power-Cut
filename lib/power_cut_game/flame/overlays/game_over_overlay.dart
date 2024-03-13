@@ -25,7 +25,7 @@ class _GameOverOverlayState extends State<GameOverOverlay> {
           width: 350,
           height: 300,
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.8),
+            color: Colors.black.withOpacity(0.9),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(

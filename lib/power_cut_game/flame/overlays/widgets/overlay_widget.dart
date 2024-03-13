@@ -34,7 +34,7 @@ class InterfaceWidget extends StatelessWidget {
 
                 /// Icon
                 Padding(
-                  padding: const EdgeInsets.only(top: 5),
+                  padding: const EdgeInsets.only(top: 5, left: 5),
                   child: Image.asset(
                     assetName,
                     width: imgWidth,
@@ -46,7 +46,7 @@ class InterfaceWidget extends StatelessWidget {
                 SizedBox(
                   width: 100,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 10, left: 25),
+                    padding: const EdgeInsets.only(top: 10, left: 30),
                     child: Text(
                       value.toString(),
                       style: const TextStyle(color: Color(0xFFFF6A00)),

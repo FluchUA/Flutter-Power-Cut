@@ -3,9 +3,9 @@ import 'package:global_gamers_challenge/utils/common_values_model.dart';
 
 enum SB7BuildingType {
   sb7_0(0, 0),
-  sb7_1(8, 100),
-  sb7_2(12, 100),
-  sb7_3(14, 150);
+  sb7_1(8, 4),
+  sb7_2(16, 8),
+  sb7_3(22, 11);
 
   const SB7BuildingType(this.co2, this.dislikes);
 

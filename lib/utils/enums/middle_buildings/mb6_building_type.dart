@@ -3,9 +3,9 @@ import 'package:global_gamers_challenge/utils/common_values_model.dart';
 
 enum MB6BuildingType {
   mb6_0(0, 0),
-  mb6_1(8, 100),
-  mb6_2(12, 100),
-  mb6_3(14, 150);
+  mb6_1(18, 9),
+  mb6_2(32, 16),
+  mb6_3(48, 24);
 
   const MB6BuildingType(this.co2, this.dislikes);
 

@@ -3,10 +3,10 @@ import 'package:global_gamers_challenge/utils/common_values_model.dart';
 
 enum BB1BuildingType {
   bb1_0(0, 0),
-  bb1_1(8, 100),
-  bb1_2(12, 100),
-  bb1_3(14, 150),
-  bb1_4(20, 200);
+  bb1_1(108, 54),
+  bb1_2(204, 102),
+  bb1_3(276, 138),
+  bb1_4(432, 216);
 
   const BB1BuildingType(this.co2, this.dislikes);
 
