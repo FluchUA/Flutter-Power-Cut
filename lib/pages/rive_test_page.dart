@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:flame_rive/flame_rive.dart';
 import 'package:flutter/material.dart';
 import 'package:global_gamers_challenge/power_cut_game/flutter/widgets/button_widget.dart';
-import 'package:rive/rive.dart';
 
 class RiveTestPage extends StatefulWidget {
   const RiveTestPage({super.key});

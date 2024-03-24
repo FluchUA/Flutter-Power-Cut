@@ -32,6 +32,14 @@ class CommonValuesModel {
   final double buttonBottomShift = 10;
   final double buttonHorizontalShift = 140;
 
+  final double ashSize = 12;
+  final double smokeSize = 220;
+  final double citySmokeSize = 50;
+
+  final int ashNumber = 40;
+  final int smokeNumber = 6;
+  final int citySmokeNumber = 16;
+
   final double minScreenWidth = 500;
   final double minScreenHeight = 250;
 
@@ -50,6 +58,7 @@ class CommonValuesModel {
   int dayEnd = 105;
   double currentTime = 0;
   int maxCO2 = 200000;
+  int maxCO2ForAsh = 150000;
   bool isGameOver = false;
 
   ScreenResize screenResizeType = ScreenResize.increase;
@@ -64,12 +73,16 @@ class CommonValuesModel {
   final List<BaseBuilding> middleBuildingsList = [];
   final List<BaseBuilding> smallBuildingsList = [];
 
-  late ValueNotifier<double> scaleNotifier;
   late ValueNotifier<int> co2Notifier;
   late ValueNotifier<int> calendarNotifier;
   late ValueNotifier<int> dislikesNotifier;
 
   late Sprite empty;
+
+  late Sprite ash;
+  late Sprite menuSmoke1;
+  late Sprite menuSmoke2;
+  late Sprite menuSmoke3;
 
   late Sprite mainMenuBackground;
   late Sprite mainMenu;

@@ -17,16 +17,14 @@ class _GamePageMenuState extends State<GamePageMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: GameWidget(
-          game: _powerCutGameMenu,
-          overlayBuilderMap: {
-            MainMenuOverlay.overlayName: (context, game) =>
-                MainMenuOverlay(_powerCutGameMenu),
-            TutorialOverlay.overlayName: (context, game) =>
-                TutorialOverlay(_powerCutGameMenu),
-          },
-        ),
+      body: GameWidget(
+        game: _powerCutGameMenu,
+        overlayBuilderMap: {
+          MainMenuOverlay.overlayName: (context, game) =>
+              MainMenuOverlay(_powerCutGameMenu),
+          TutorialOverlay.overlayName: (context, game) =>
+              TutorialOverlay(_powerCutGameMenu),
+        },
       ),
     );
   }

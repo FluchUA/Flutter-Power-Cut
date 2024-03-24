@@ -32,3 +32,5 @@ flutter:
     - assets/control_panel/
     - assets/city/
     - assets/city/windows/
+    - assets/particles/
+    - assets/particles/smoke_menu/

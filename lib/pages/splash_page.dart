@@ -192,8 +192,16 @@ class _SplashPageState extends State<SplashPage> {
       ..sb9_3 = await getSpriteFromAsset('assets/city/windows/sb9_3.png')
       ..factory = await getSpriteFromAsset('assets/city/windows/factory.png')
 
+      /// Particles
+      ..ash = await getSpriteFromAsset('assets/particles/ash.png')
+      ..menuSmoke1 = await getSpriteFromAsset(
+          'assets/particles/smoke_menu/menu_smoke1.png')
+      ..menuSmoke2 = await getSpriteFromAsset(
+          'assets/particles/smoke_menu/menu_smoke2.png')
+      ..menuSmoke3 = await getSpriteFromAsset(
+          'assets/particles/smoke_menu/menu_smoke3.png')
+
       /// Notifiers
-      ..scaleNotifier = ValueNotifier(1)
       ..co2Notifier = ValueNotifier(0)
       ..calendarNotifier = ValueNotifier(1)
       ..dislikesNotifier = ValueNotifier(0);

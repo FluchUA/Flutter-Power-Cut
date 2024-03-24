@@ -6,15 +6,29 @@ class ScreenResizeModel {
   ScreenResizeModel._();
 
   static final ScreenResizeModel instance = ScreenResizeModel._();
-  double _sizeFactor = -1;
   bool _isDoubleCheck = false;
 
   bool onScreenResize(Vector2 size) {
     final cVModel = CommonValuesModel.instance;
 
+    _isDoubleCheck = cVModel.screenW != size.x || cVModel.screenH != size.y;
+
+    /// Determining whether the screen is currently increasing or decreasing
+    if (_isDoubleCheck) {
+      if (cVModel.screenW <= size.x || cVModel.screenH >= size.y) {
+        cVModel.screenResizeType = ScreenResize.increase;
+      } else {
+        cVModel.screenResizeType = ScreenResize.decrease;
+      }
+    }
+
     cVModel
       ..screenW = size.x
       ..screenH = size.y
+
+      /// Removes most gaps between elements
+      ..screenW += cVModel.screenW % 2 == 0 ? 1 : 0
+      ..screenH += cVModel.screenH % 2 == 0 ? 1 : 0
 
       /// Calculating height boundaries for positioning layers
       ..currentEdgeHeight = cVModel.screenH > cVModel.minScreenHeight
@@ -29,35 +43,8 @@ class ScreenResizeModel {
     ///  Calculate scale
     cVModel.scale = minLength / cVModel.minScreenWidth;
 
-    /// Determining whether the screen is currently increasing or decreasing
-    final screenFactor = size.x / size.y;
-    if (screenFactor > _sizeFactor) {
-      cVModel.screenResizeType = ScreenResize.increase;
-    } else if (screenFactor < _sizeFactor) {
-      cVModel.screenResizeType = ScreenResize.decrease;
-    } else {
-      if (!_isDoubleCheck) {
-        // cVModel.screenResizeType = ScreenResize.none;
-      } else {
-        _isDoubleCheck = false;
-      }
-    }
-
-    /// Removes gaps between elements
-    cVModel
-      ..screenW += cVModel.screenW % 2 == 0 ? 1 : 0
-      ..screenH += cVModel.screenH % 2 == 0 ? 1 : 0;
-
-    cVModel.scaleNotifier.value = cVModel.scale;
-
     /// Additional call to calculate dimensions
     /// Fixes incorrect behavior for the browser when the screen size changes suddenly
-    if (_sizeFactor != screenFactor) {
-      _isDoubleCheck = true;
-      _sizeFactor = screenFactor;
-      return true;
-    }
-
-    return false;
+    return _isDoubleCheck;
   }
 }

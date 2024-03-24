@@ -23,7 +23,7 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
         physics: const NeverScrollableScrollPhysics(),
         child: Container(
           width: 800,
-          height: 800,
+          height: 650,
           decoration: BoxDecoration(
             color: Colors.black.withOpacity(0.5),
             borderRadius: BorderRadius.circular(12),
@@ -34,8 +34,8 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
               Image.asset(
                 'assets/tutorial.png',
                 width: 700,
-                height: 700,
               ),
+              const SizedBox(height: 40),
 
               /// Ok btn
               SizedBox(

@@ -25,6 +25,7 @@ import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/compon
 import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/components/city/buildings/small_buildings/sb9_building.dart';
 import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/components/city/city_main_component.dart';
 import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/components/control_panel/control_panel_main_component.dart';
+import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/components/particles/ahs_component.dart';
 import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/components/sky/bottom_layer/sky_bottom_main_component.dart';
 import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/components/sky/top_layer/sky_top_main_component.dart';
 import 'package:global_gamers_challenge/power_cut_game/flame/flame_models/components/water/bottom_layer/water_bottom_main_component.dart';
@@ -41,6 +42,9 @@ class MainComponent extends PositionComponent with HasGameRef<PowerCutGame> {
   final CommonValuesModel _cVModel = CommonValuesModel.instance;
   final ScreenResizeModel _screenResizeModel = ScreenResizeModel.instance;
   DayCycleType _currentDayCycleType = DayCycleType.night1;
+  final List<AshComponent> _ashList = [];
+  final _factoryComponent = SB1Building()
+    ..spriteComponent = BuildingsSpriteComponent();
 
   @override
   FutureOr<void> onLoad() async {
@@ -104,6 +108,9 @@ class MainComponent extends PositionComponent with HasGameRef<PowerCutGame> {
       add(element.spriteComponent);
     }
 
+    /// Factory
+    add(_factoryComponent.spriteComponent);
+
     return super.onLoad();
   }
 
@@ -148,6 +155,10 @@ class MainComponent extends PositionComponent with HasGameRef<PowerCutGame> {
           for (final element in _cVModel.smallBuildingsList) {
             element.randomLight();
           }
+
+          _factoryComponent.spriteComponent.sprite = _cVModel.factory;
+        } else {
+          _factoryComponent.spriteComponent.sprite = _cVModel.empty;
         }
 
         var co2Sum = 0;
@@ -205,6 +216,15 @@ class MainComponent extends PositionComponent with HasGameRef<PowerCutGame> {
               _cVModel.currentTime - element.timeStart);
         break;
       }
+    }
+
+    /// Ash
+    if (_cVModel.co2Notifier.value > _cVModel.maxCO2ForAsh &&
+        _ashList.isEmpty) {
+      for (var i = 0; i < _cVModel.ashNumber; i++) {
+        _ashList.add(AshComponent());
+      }
+      addAll(_ashList);
     }
 
     /// End game
