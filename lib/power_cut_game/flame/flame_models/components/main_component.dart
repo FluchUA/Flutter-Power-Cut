@@ -41,7 +41,7 @@ import 'package:global_gamers_challenge/utils/screen_resize.dart';
 class MainComponent extends PositionComponent with HasGameRef<PowerCutGame> {
   final CommonValuesModel _cVModel = CommonValuesModel.instance;
   final ScreenResizeModel _screenResizeModel = ScreenResizeModel.instance;
-  DayCycleType _currentDayCycleType = DayCycleType.night1;
+  WaterCycleType _currentWaterCycleType = WaterCycleType.night1;
   final List<AshComponent> _ashList = [];
   final _factoryComponent = SB1Building()
     ..spriteComponent = BuildingsSpriteComponent();
@@ -51,7 +51,10 @@ class MainComponent extends PositionComponent with HasGameRef<PowerCutGame> {
     _cVModel
       ..gameSpeed = 5
       ..currentTime = 0
-      ..isGameOver = false;
+      ..isGameOver = false
+      ..bigBuildingsList.clear()
+      ..middleBuildingsList.clear()
+      ..smallBuildingsList.clear();
     _cVModel.dislikesNotifier.value = 0;
     _cVModel.calendarNotifier.value = 1;
     _cVModel.co2Notifier.value = 0;
@@ -141,7 +144,7 @@ class MainComponent extends PositionComponent with HasGameRef<PowerCutGame> {
     }
 
     if (!_cVModel.isGameOver) {
-      if (_currentDayCycleType != _cVModel.dayCycleType) {
+      if (_currentWaterCycleType != _cVModel.waterCycleType) {
         if (!(_cVModel.currentTime > _cVModel.dayStart &&
             _cVModel.currentTime < _cVModel.dayEnd)) {
           for (final element in _cVModel.bigBuildingsList) {
@@ -175,7 +178,7 @@ class MainComponent extends PositionComponent with HasGameRef<PowerCutGame> {
         }
 
         _cVModel.co2Notifier.value += co2Sum;
-        _currentDayCycleType = _cVModel.dayCycleType;
+        _currentWaterCycleType = _cVModel.waterCycleType;
       }
     }
 
