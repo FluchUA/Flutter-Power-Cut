@@ -1,0 +1,36 @@
+name: global_gamers_challenge
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.6 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flame: ^1.15.0
+  flame_rive: ^1.9.11
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/sky/
+    - assets/water/
+    - assets/rive/
+    - assets/menu/
+    - assets/interface/
+    - assets/control_panel/
+    - assets/city/
+    - assets/city/windows/
+    - assets/particles/
+    - assets/particles/smoke_menu/
