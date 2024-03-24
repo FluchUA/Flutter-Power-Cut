@@ -9,6 +9,8 @@ The implementation was chosen in a hurry, the reason for which is Rive. The game
 Looks more interesting on devices with a big screen, as the game scales the interface and looks nicer and more pleasant :)
 
 ![g1](https://github.com/FluchUA/Flutter-Power-Cut/assets/62064623/556a3cfd-4a20-40a0-ab58-ecd1ebb8104e)
+
+I don’t understand why the animations are recorded with some defects<br/>
 ![g2](https://github.com/FluchUA/Flutter-Power-Cut/assets/62064623/855fdbd8-4733-4f18-9169-173712c4491a)
 ![g3](https://github.com/FluchUA/Flutter-Power-Cut/assets/62064623/fba2a83a-5801-424d-8538-c8f25f60e959)
 ![g5](https://github.com/FluchUA/Flutter-Power-Cut/assets/62064623/2ce119f2-144d-4bc3-b7d8-fcfae11d12f2)
