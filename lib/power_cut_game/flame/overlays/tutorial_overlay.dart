@@ -18,51 +18,60 @@ class _TutorialOverlayState extends State<TutorialOverlay> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
-        child: Container(
-          width: 800,
-          height: 650,
-          decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.5),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/tutorial.png',
-                width: 700,
+    return LayoutBuilder(builder: (context, constraints) {
+      return Center(
+        child: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
+          child: SizedBox(
+            width: constraints.maxWidth,
+            height: constraints.maxHeight,
+            child: Container(
+              margin: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(12),
               ),
-              const SizedBox(height: 40),
+              child: IntrinsicHeight(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Expanded(child: Image.asset('assets/tutorial.png')),
+                    const SizedBox(height: 20),
 
-              /// Ok btn
-              SizedBox(
-                width: 150,
-                height: 40,
-                child: ElevatedButton(
-                  onPressed: _onOkPressed,
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(_buttonColor),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                    /// Ok btn
+                    Center(
+                      child: SizedBox(
+                        width: 150,
+                        height: 40,
+                        child: ElevatedButton(
+                          onPressed: _onOkPressed,
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(_buttonColor),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                          ),
+                          child: const Text(
+                            'Ok',
+                            style: TextStyle(color: _textColor),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                  child: const Text(
-                    'Ok',
-                    style: TextStyle(color: _textColor),
-                  ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   void _onOkPressed() {
